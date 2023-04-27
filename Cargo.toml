@@ -6,5 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-azure_security_keyvault = "~0"
-azure_identity = "~0"
+azure_security_keyvault = "*"
+azure_identity = "*"
