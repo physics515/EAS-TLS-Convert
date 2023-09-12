@@ -2,6 +2,7 @@ use crate::cert::TlsCert;
 use azure_identity::ImdsManagedIdentityCredential;
 use azure_security_keyvault::KeyvaultClient;
 use std::sync::Arc;
+use std::fs;
 
 #[derive(Debug, Clone)]
 pub struct Keys {
@@ -26,6 +27,13 @@ impl Keys {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
 		let cert_path = azure_key_vault_client.get("tls-cert-path").await.unwrap().value;
+
+                // debug list files in cert_path
+                let paths = fs::read_dir(&cert_path).unwrap();
+                for path in paths {
+                    println!("Name: {}", path.unwrap().path().display());
+                }
+
                 let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value;
                 let full_path = format!("{}{}.p12", cert_path, cert_thumbprint);
                 println!("tls_cert_path: {}", full_path);
