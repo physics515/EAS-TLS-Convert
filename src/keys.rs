@@ -34,7 +34,7 @@ impl Keys {
                     println!("Name: {}", path.unwrap().path().display());
                 }
 
-                let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value;
+                let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value.to_uppercase();
                 let full_path = format!("{}{}.p12", cert_path, cert_thumbprint);
                 println!("tls_cert_path: {}", full_path);
                 cert_path
