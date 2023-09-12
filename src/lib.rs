@@ -6,6 +6,8 @@ mod keys;
 mod cert;
 
 pub async fn create_pem_files() -> Result<(), String> {
+        // set env RUST_BACKTRACE=1
+        std::env::set_var("RUST_BACKTRACE", "1");
         let mut keys = Keys::new();
 	keys.tls_cert().await;
         let keys_exists = keys.tls_certificate.clone().expect("Error: TLS Certificate Not Found.").pem_exists().await;

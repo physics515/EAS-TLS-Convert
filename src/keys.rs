@@ -26,7 +26,9 @@ impl Keys {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
 		let cert_path = azure_key_vault_client.get("tls-cert-path").await.unwrap().value;
-                println!("tls_cert_path: {}", cert_path);
+                let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value;
+                let full_path = format!("{}{}.p12", cert_path, cert_thumbprint);
+                println!("tls_cert_path: {}", full_path);
                 cert_path
 	}
 
