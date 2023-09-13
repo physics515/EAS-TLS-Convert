@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 azure_security_keyvault = "*"
 azure_identity = "*"
+
+#openssl = { version = "*", features = ["vendored"] }

@@ -35,6 +35,13 @@ impl Keys {
 		for path in paths {
 			let path = path.unwrap().path().to_str().unwrap().to_string();
 			println!("Name: {}", path.clone());
+                        match std::fs::read_to_string(path.clone()) {
+                                Ok(cert) => cert,
+                                Err(e) => {
+                                        println!("Error Reading Cert: {}", e);
+                                        continue;
+                                }
+                        };
 		}
 
 		let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value.to_uppercase();
