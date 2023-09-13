@@ -32,21 +32,10 @@ impl Keys {
 
 		// debug list files in cert_path
 		let paths = fs::read_dir(&cert_path).unwrap();
-		for path in paths {
-			let path = path.unwrap().path().to_str().unwrap().to_string();
-			println!("Name: {}", path.clone());
-                        match std::fs::read_to_string(path.clone()) {
-                                Ok(cert) => cert,
-                                Err(e) => {
-                                        println!("Error Reading Cert: {}", e);
-                                        continue;
-                                }
-                        };
-		}
+                let paths: Vec<String> = paths.map(|entry| entry.unwrap().path().display().to_string()).collect();
 
-		let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value.to_uppercase();
-		let full_path = format!("{}{}.p12", cert_path, cert_thumbprint);
-		println!("tls_cert_path: {}", full_path);
+                let cert_path = paths[0].clone();
+		println!("tls_cert_path: {}", cert_path.clone());
 		cert_path
 	}
 
