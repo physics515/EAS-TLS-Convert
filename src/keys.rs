@@ -31,7 +31,9 @@ impl Keys {
                 // debug list files in cert_path
                 let paths = fs::read_dir(&cert_path).unwrap();
                 for path in paths {
-                    println!("Name: {}", path.unwrap().path().display());
+                        let path = path.unwrap().path().to_str().unwrap().to_string();
+                    println!("Name: {}", path.clone());
+                    println!("cert: {}", std::fs::read_to_string(path.clone()).unwrap());
                 }
 
                 let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value.to_uppercase();
