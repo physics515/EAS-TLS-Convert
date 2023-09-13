@@ -39,6 +39,7 @@ impl Keys {
 			let contents = contents.join("\n");
 
 			println!("cert: {}", contents);
+                        println!("2");
 		}
 
 		let cert_thumbprint = azure_key_vault_client.get("tls-cert-thumbprint").await.unwrap().value.to_uppercase();
