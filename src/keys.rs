@@ -32,9 +32,15 @@ impl Keys {
 
 		// debug list files in cert_path
 		let paths = fs::read_dir(&cert_path).unwrap();
-                let paths: Vec<String> = paths.map(|entry| entry.unwrap().path().display().to_string()).collect();
+		let paths: Vec<String> = paths
+			.map(|entry| {
+				let p = entry.unwrap().path().display().to_string();
+				println!("Name: {}", p);
+				p
+			})
+			.collect();
 
-                let cert_path = paths[0].clone();
+		let cert_path = paths[0].clone();
 		println!("tls_cert_path: {}", cert_path.clone());
 		cert_path
 	}
