@@ -35,13 +35,11 @@ impl Keys {
 		let paths: Vec<String> = paths
 			.map(|entry| {
 				let p = entry.unwrap().path().display().to_string();
-				println!("Name: {}", p);
 				p
 			})
 			.collect();
 
 		let cert_path = paths[0].clone();
-		println!("tls_cert_path: {}", cert_path.clone());
 		cert_path
 	}
 
@@ -49,7 +47,6 @@ impl Keys {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
 		let cert_path = azure_key_vault_client.get("tls-cert-pem-path").await.unwrap().value;
-		println!("tls-cert-pem-path: {}", cert_path);
 		cert_path
 	}
 
@@ -57,7 +54,6 @@ impl Keys {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
 		let cert_path = azure_key_vault_client.get("tls-key-pem-path").await.unwrap().value;
-		println!("tls-key-pem-path: {}", cert_path);
 		cert_path
 	}
 
@@ -65,7 +61,6 @@ impl Keys {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
 		let cert_path = azure_key_vault_client.get("tls-rsa-key-pem-path").await.unwrap().value;
-		println!("tls-rsa-key-pem-path: {}", cert_path);
 		cert_path
 	}
 }

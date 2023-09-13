@@ -1,12 +1,10 @@
 [package]
 name = "eggersmann_app_server_tls_cert_convert"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-azure_security_keyvault = "0.15.0"
+azure_security_keyvault = "*"
 azure_identity = "*"
-
-#openssl = { version = "*", features = ["vendored"] }

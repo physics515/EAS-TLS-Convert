@@ -328,7 +328,7 @@ checksum = "bbfc4744c1b8f2a09adc0e55242f60b1af195d88596bd8700be74418c056c555"
 
 [[package]]
 name = "eggersmann_app_server_tls_cert_convert"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "azure_identity",
  "azure_security_keyvault",
