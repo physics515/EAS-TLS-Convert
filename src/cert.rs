@@ -52,9 +52,13 @@ impl TlsCert {
 				Some(tls_rsa_key_pem_path_parent) => match create_dir_all(tls_rsa_key_pem_path_parent) {
 					Ok(_) => match File::create(tls_rsa_key_pem_path) {
 						Ok(_) => {}
-						Err(e) => panic!("Failed to create TLS RSA encoded key PEM file: {}", e),
+						Err(e) => {
+							panic!("Failed to create TLS RSA encoded key PEM file: {}", e)
+						}
 					},
-					Err(e) => panic!("Failed to create directory for tls-rsa-key-pem-path: {}", e),
+					Err(e) => {
+						panic!("Failed to create directory for tls-rsa-key-pem-path: {}", e)
+					}
 				},
 				None => panic!("Failed to get parent directory of tls-rsa-key-pem-path: {}", tls_rsa_key_pem_path.display()),
 			};
