@@ -31,7 +31,7 @@ impl Keys {
 		let cert_path = azure_key_vault_client.get("tls-cert-path").await.unwrap().value;
 
 		// debug list files in cert_path
-		let paths = fs::read_dir(&cert_path).unwrap();
+		let paths = fs::read_dir(cert_path).unwrap();
 		let paths: Vec<String> = paths
 			.map(|entry| {
 				let p = entry.unwrap().path().display().to_string();
@@ -39,28 +39,24 @@ impl Keys {
 			})
 			.collect();
 
-		let cert_path = paths[0].clone();
-		cert_path
+		paths[0].clone()
 	}
 
 	pub async fn tls_cert_pem_path(&mut self) -> String {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
-		let cert_path = azure_key_vault_client.get("tls-cert-pem-path").await.unwrap().value;
-		cert_path
+		azure_key_vault_client.get("tls-cert-pem-path").await.unwrap().value
 	}
 
 	pub async fn tls_key_pem_path(&mut self) -> String {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
-		let cert_path = azure_key_vault_client.get("tls-key-pem-path").await.unwrap().value;
-		cert_path
+		azure_key_vault_client.get("tls-key-pem-path").await.unwrap().value
 	}
 
 	pub async fn tls_rsa_key_pem_path(&mut self) -> String {
 		let azure_credentials = ImdsManagedIdentityCredential::default();
 		let azure_key_vault_client = KeyvaultClient::new("https://eggappserverkeyvault.vault.azure.net", Arc::new(azure_credentials)).unwrap().secret_client();
-		let cert_path = azure_key_vault_client.get("tls-rsa-key-pem-path").await.unwrap().value;
-		cert_path
+		azure_key_vault_client.get("tls-rsa-key-pem-path").await.unwrap().value
 	}
 }
